@@ -82,12 +82,12 @@ if generate_btn:
             
             with col1:
                 st.markdown("### Option 1")
-                st.write(options[0].replace("Option 1:", ""))
+                st.markdown(options[0].replace("Option 1:", ""))
                 
             if len(options) > 1:
                 with col2:
                     st.markdown("### Option 2")
-                    st.write(options[1])
+                    st.markdown(options[1])
             else:
                 st.write(response.text) # Fallback if split fails
 
