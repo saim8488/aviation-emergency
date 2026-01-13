@@ -8,7 +8,7 @@ st.set_page_config(page_title="Pak-Aviation Emergency Advisor", page_icon="âœˆï¸
 # --- SECRETS & API SETUP ---
 # On Streamlit Cloud, add your key to 'Secrets' with the name: GEMINI_KEY
 try:
-    API_KEY = st.secrets["AIzaSyCqjQ-6aWvS3aW7JW19XIM6pqujIs0wFvI"]
+    API_KEY = st.secrets["GEMINI_KEY"]
     genai.configure(api_key=API_KEY)
     model = genai.GenerativeModel('gemini-1.5-flash')
 except Exception:
