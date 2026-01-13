@@ -9,6 +9,7 @@ st.set_page_config(page_title="Pak-Aviation Emergency Advisor", page_icon="✈�
 # On Streamlit Cloud, add your key to 'Secrets' with the name: GEMINI_KEY
 try:
     API_KEY = st.secrets["GEMINI_KEY"]
+    #genai.configure(api_key="AIzaSyCqjQ-6aWvS3aW7JW19XIM6pqujIs0wFvI")
     genai.configure(api_key=API_KEY)
     model = genai.GenerativeModel('gemini-2.5-flash')
 except Exception:
@@ -34,7 +35,7 @@ HISTORICAL_DATA = [
 ]
 
 # --- UI LAYOUT ---
-st.title("🇵🇰 Pakistan Aviation Emergency Decision Support")
+st.title("Aviation Advisor")
 st.markdown("---")
 
 # Sidebar for Input
@@ -55,7 +56,7 @@ if generate_btn:
         airport_info = AIRPORTS_DB[location]
         
         prompt = f"""
-        ACT AS: A Senior Flight Safety Officer for Pakistan Civil Aviation.
+        ACT AS: A technical aviation emergency system for Pakistan Civil Aviation.
         EMERGENCY: {emergency_type} near {location}.
         AIRCRAFT STATUS: Altitude {altitude}ft, Weather: {weather}.
         NEAREST AIRPORT SPECS: {airport_info}.
@@ -67,6 +68,11 @@ if generate_btn:
         2. Reasoning (Why this is safer based on specs or history)
         3. Risks (What to watch out for)
         
+        Do not use a persona.,
+        Eliminate all conversational filler, intros, and 'roleplay' dialogue.,
+        Never say 'Certainly', 'As a Senior Officer', or 'To the flight crew'.,
+        Provide only the raw technical data and options in the requested format.,
+        Output must be blunt, directive, technical, and concise
         Format as clear, professional bullet points. Use technical aviation terminology.
         """
         
