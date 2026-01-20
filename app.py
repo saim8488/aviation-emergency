@@ -68,7 +68,7 @@ with st.sidebar:
 
 #weather
 with st.sidebar:
-    st.header("🌦️ Current Conditions")
+    st.header("Current Conditions")
     # Use the city already selected in your main app
     # 'location' is the variable from your existing selectbox
     current_city = location.split(" (")[0] # Clean "Karachi (OPKC)" to "Karachi"
