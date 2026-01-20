@@ -41,7 +41,7 @@ st.markdown("---")
 # Sidebar for Input
 with st.sidebar:
     st.header("Emergency Details")
-    emergency_type = st.selectbox("Type of Emergency", ["Engine Failure", "Fire/Smoke", "Fuel Leakage", "Medical Emergency", "Hydraulic Failure"])
+    emergency_type = st.selectbox("Type of Emergency", ["Engine Failure", "Fire/Smoke", "Fuel Leakage", "Medical Emergency", "Hydraulic Failure", "NOTAM", "Flight Delay", "Weather Warning", "CAT"])
     location = st.selectbox("Current Nearest Major City", list(AIRPORTS_DB.keys()))
     altitude = st.number_input("Current Altitude (ft)", value=30000, step=1000)
     weather = st.text_input("Current Weather Conditions", "Clear")
