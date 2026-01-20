@@ -20,20 +20,7 @@ def get_weather(city_name):
     return None
 
 # Display in the Sidebar
-with st.sidebar:
-    st.header("🌦️ Current Conditions")
-    # Use the city already selected in your main app
-    # 'location' is the variable from your existing selectbox
-    current_city = location.split(" (")[0] # Clean "Karachi (OPKC)" to "Karachi"
-    
-    weather = get_weather(current_city)
-    if weather:
-        st.metric("Temperature", f"{weather['temperature']}°C")
-        st.metric("Wind Speed", f"{weather['windspeed']} km/h")
-        st.caption(f"Last updated for {current_city}")
-    else:
-        st.write("Weather data unavailable.")
-# --- PAGE CONFIG ---
+
 st.set_page_config(page_title="Pak-Aviation Emergency Advisor", page_icon="✈️", layout="wide")
 
 # --- SECRETS & API SETUP ---
@@ -79,6 +66,21 @@ with st.sidebar:
     
     generate_btn = st.button("GET VIABLE OPTIONS", type="primary")
 
+#weather
+with st.sidebar:
+    st.header("🌦️ Current Conditions")
+    # Use the city already selected in your main app
+    # 'location' is the variable from your existing selectbox
+    current_city = location.split(" (")[0] # Clean "Karachi (OPKC)" to "Karachi"
+    
+    weather = get_weather(current_city)
+    if weather:
+        st.metric("Temperature", f"{weather['temperature']}°C")
+        st.metric("Wind Speed", f"{weather['windspeed']} km/h")
+        st.caption(f"Last updated for {current_city}")
+    else:
+        st.write("Weather data unavailable.")
+# --- PAGE CONFIG ---
 # Main Display
 if generate_btn:
     with st.spinner("Analyzing data and calculating options..."):
