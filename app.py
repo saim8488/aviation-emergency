@@ -19,8 +19,6 @@ def get_weather(city_name):
         return data["current_weather"]
     return None
 
-# Display in the Sidebar
-
 st.set_page_config(page_title="Pak-Aviation Emergency Advisor", page_icon="✈️", layout="wide")
 
 # --- SECRETS & API SETUP ---
@@ -36,13 +34,31 @@ except Exception:
 
 # --- DATA: PAKISTAN AVIATION CONTEXT ---
 # Standard routes and major airports in Pakistan
+# --- DETAILED AIRPORT DATA (EXTRACTED FROM JEPPESEN OPLA CHARTS) ---
 AIRPORTS_DB = {
-    "Karachi (OPKC)": {"runway": "3400m", "fuel": "Jet A-1", "emergency_services": "CAT 9"},
-    "Lahore (OPLA)": {"runway": "3300m", "fuel": "Jet A-1", "emergency_services": "CAT 9"},
-    "Islamabad (OPIS)": {"runway": "3600m", "fuel": "Jet A-1", "emergency_services": "CAT 9"},
-    "Quetta (OPQT)": {"runway": "3600m", "fuel": "Jet A-1", "emergency_services": "High Altitude"},
-    "Peshawar (OPPS)": {"runway": "2700m", "fuel": "Jet A-1", "emergency_services": "CAT 8"},
-    "Multan (OPMT)": {"runway": "3200m", "fuel": "Jet A-1", "emergency_services": "CAT 8"},
+    "Lahore (OPLA)": {
+        "Elev": "714 ft",
+        "Runways": [
+            "18L/36R: 11024ft x 148ft (Concrete), CAT II/III approved",
+            "18R/36L: 8999ft x 151ft (Asphalt)"
+        ],
+        "Frequencies": "ATIS: 126.3, Tower: 118.1, Approach: 121.3, Ground: 118.4",
+        "Emergency_Notes": "Stand 9 unavailable. Stands 10 & 11 available for emergencies. Exercise caution for heavy machinery.",
+        "Missed_Approach": "Climb straight ahead to 3000', then turn LEFT on 320 degrees and contact ATC.",
+        "MSA": "2600ft within Pakistani territory (LA VOR)"
+    },
+    "Karachi (OPKC)": {
+        "Elev": "100 ft",
+        "Runways": ["07L/25R: 3400m (Concrete)"],
+        "Frequencies": "Tower: 118.3, Approach: 125.5",
+        "Emergency_Notes": "High bird strike risk reported during sunrise/sunset."
+    },
+    "Islamabad (OPIS)": {
+        "Elev": "1750 ft",
+        "Runways": ["10L/28R: 3600m (Concrete)"],
+        "Frequencies": "Tower: 118.7, Approach: 124.9",
+        "Emergency_Notes": "Mountainous terrain to the North. Windshear frequent."
+    }
 }
 
 # Sample historical data for Gemini to learn from
@@ -53,7 +69,7 @@ HISTORICAL_DATA = [
 ]
 
 # --- UI LAYOUT ---
-st.title("Aviation Advisor")
+st.title("Plan Continuation Bias Intrupter")
 st.markdown("---")
 
 # Sidebar for Input
@@ -95,7 +111,14 @@ if generate_btn:
         NEAREST AIRPORT SPECS: {airport_info}.
         HISTORICAL INCIDENTS IN PK: {historical_context}.
         
-        TASK: Provide exactly TWO viable options for the pilot. 
+        TASK: Provide two viable options.
+        REQUIREMENTS:
+        - Incorporate specific runway lengths and frequencies provided.
+        - Reference historical incidents like PIA 8303 or Airblue 202 if relevant to the site, alongslide the sample historical data provided.
+        - Option 1 must be the safest immediate action.
+        - Option 2 must be the primary alternative action.
+        - Use blunt, technical instructions.
+
         Each option must include:
         1. Action Name (e.g., Immediate Diversion to [Airport])
         2. Reasoning (Why this is safer based on specs or history)
